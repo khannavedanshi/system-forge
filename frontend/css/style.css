@@ -1,0 +1,747 @@
+    :root {
+      --bg: #0D0E11;
+      --bg-soft: #13151A;
+      --bg-float: rgba(20, 22, 27, 0.94);
+      --ink: #F2F4F8;
+      --muted: #7D8492;
+      --dim: #464B57;
+      --line: rgba(255, 255, 255, 0.07);
+      --line-strong: rgba(255, 255, 255, 0.15);
+      --accent: #E2F163;
+      --accent-ink: #0D0E11;
+      --cyan: #58C4DC;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-hand: 'Caveat', cursive;
+      --font-arch: 'Architects Daughter', cursive;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+    }
+    *::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    *::-webkit-scrollbar-button {
+      display: none;
+    }
+    *::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.14);
+      border-radius: 99px;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Open-Space Root Layout */
+    .app-root {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) 28px;
+      width: 100%;
+      height: 100dvh;
+      background-color: var(--bg);
+      overflow: hidden;
+    }
+
+    /* Top Open Ribbon */
+    .top-header {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--bg);
+      border-bottom: 1px solid var(--line);
+      user-select: none;
+      z-index: 40;
+    }
+
+    .top-nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 36px;
+      padding: 0 18px;
+      gap: 16px;
+    }
+
+    .open-cluster {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .hair-sep {
+      width: 1px;
+      height: 14px;
+      background-color: var(--line-strong);
+      flex-shrink: 0;
+    }
+
+    .tab-link {
+      height: 36px;
+      padding: 0 4px;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: color 120ms ease, border-color 120ms ease;
+    }
+    .tab-link:hover {
+      color: var(--ink);
+    }
+    .tab-link.active {
+      color: var(--ink);
+      border-bottom-color: var(--accent);
+    }
+    .tab-link svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      fill: none;
+    }
+
+    .ribbon-sub-row {
+      display: flex;
+      align-items: center;
+      height: 38px;
+      padding: 0 18px;
+      gap: 16px;
+      background-color: var(--bg);
+      border-top: 1px solid var(--line);
+      overflow-x: auto;
+    }
+
+    .sub-pane {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: nowrap;
+    }
+
+    .tool-cluster {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Minimal Borderless Icon Button */
+    .icon-btn {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+      transition: color 100ms ease, background-color 100ms ease, transform 100ms ease;
+    }
+    .icon-btn:hover {
+      color: var(--ink);
+      background-color: rgba(255, 255, 255, 0.06);
+    }
+    .icon-btn:active {
+      transform: scale(0.93);
+    }
+    .icon-btn.active {
+      color: var(--accent);
+      background-color: rgba(226, 241, 99, 0.14);
+    }
+    .icon-btn svg {
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+      stroke-width: 1.85;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      pointer-events: none;
+    }
+
+    .style-chip {
+      height: 24px;
+      padding: 0 8px;
+      border-radius: 5px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 11.5px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .style-chip:hover {
+      color: var(--ink);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    .style-chip.active {
+      color: var(--accent);
+      background-color: rgba(226, 241, 99, 0.12);
+    }
+
+    .combo-dot {
+      position: absolute;
+      bottom: 3px;
+      right: 3px;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background-color: currentColor;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    input[type="range"].thick-slider {
+      width: 74px;
+      height: 3px;
+      accent-color: var(--accent);
+      background: var(--line-strong);
+      border-radius: 99px;
+      cursor: pointer;
+    }
+    .mono-readout {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      min-width: 26px;
+    }
+
+    /* Color Swatches & First-Position '+' Add Custom Color Button */
+    .swatch-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+      transition: transform 100ms ease;
+    }
+    .swatch-dot:hover {
+      transform: scale(1.16);
+    }
+    .swatch-dot.active {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px;
+    }
+
+    /* First-Position Color Wheel with '+' Icon Overlay */
+    .color-plus-wheel {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: conic-gradient(#F87171, #F59E0B, #E2F163, #34D399, #58C4DC, #A78BFA, #F472B6, #F87171);
+      border: 1.5px solid var(--ink);
+      cursor: pointer;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .color-plus-wheel::after {
+      content: '+';
+      position: relative;
+      z-index: 2;
+      color: #0D0E11;
+      background-color: rgba(255, 255, 255, 0.88);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 12px;
+      text-align: center;
+      pointer-events: none;
+    }
+    .color-plus-wheel input[type="color"] {
+      position: absolute;
+      inset: -6px;
+      width: 32px;
+      height: 32px;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    /* Main Open Split Workspace */
+    .workspace-stage {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background-color: var(--bg);
+    }
+
+    .notes-surface {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background-color: var(--bg);
+      min-width: 220px;
+      overflow: hidden;
+    }
+
+    .rich-notes-area {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      padding: 48px clamp(24px, 4.5vw, 64px) 80px clamp(24px, 4.5vw, 64px);
+      background-color: var(--bg);
+      color: var(--ink);
+      outline: none;
+      font-size: 14.5px;
+      line-height: 1.75;
+      user-select: text;
+    }
+    .rich-notes-area:empty::before {
+      content: attr(data-placeholder);
+      color: var(--dim);
+      pointer-events: none;
+    }
+    .rich-notes-area h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 14px 0;
+      letter-spacing: -0.02em;
+    }
+    .rich-notes-area h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 20px 0 8px 0;
+      color: var(--ink);
+    }
+    .rich-notes-area p {
+      margin-bottom: 12px;
+    }
+    .rich-notes-area ul, .rich-notes-area ol {
+      padding-left: 22px;
+      margin-bottom: 12px;
+    }
+    .rich-notes-area pre {
+      background-color: var(--bg-soft);
+      border-left: 2px solid var(--accent);
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      margin: 14px 0;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    .rich-notes-area img.embedded-canvas-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin: 16px 0;
+      display: block;
+    }
+    .file-attachment-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 0;
+      margin: 6px 0;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--accent);
+      user-select: none;
+    }
+
+    textarea.raw-notes-area {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg);
+      color: var(--ink);
+      border: none;
+      padding: 48px clamp(24px, 4.5vw, 64px) 80px clamp(24px, 4.5vw, 64px);
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      line-height: 1.75;
+      resize: none;
+      outline: none;
+    }
+
+    .open-splitter {
+      width: 1px;
+      height: 100%;
+      background-color: var(--line);
+      cursor: col-resize;
+      position: relative;
+      flex-shrink: 0;
+      z-index: 30;
+      touch-action: none;
+    }
+    .open-splitter::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -6px;
+      right: -6px;
+    }
+    .open-splitter:hover,
+    .open-splitter.active {
+      background-color: var(--accent);
+      width: 2px;
+    }
+
+    /* Right Open Infinite Canvas Surface */
+    .canvas-surface {
+      position: relative;
+      flex: 1;
+      height: 100%;
+      background-color: var(--bg);
+      min-width: 240px;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    canvas#draw-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: crosshair;
+    }
+    canvas#draw-canvas.cursor-select {
+      cursor: default;
+    }
+    canvas#draw-canvas.cursor-pan {
+      cursor: grab;
+    }
+    canvas#draw-canvas.cursor-panning {
+      cursor: grabbing;
+    }
+    canvas#draw-canvas.cursor-pointer {
+      cursor: pointer;
+    }
+
+    /* Contextual Popover When Clicking Any of the 4 Edge '+' Icons on a Box */
+    .edge-plus-menu {
+      position: absolute;
+      z-index: 58;
+      background-color: var(--bg-float);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 4px 7px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      user-select: none;
+    }
+
+    /* Floating Minimal Tool Dock on Open Canvas */
+    .floating-dock {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 10px;
+      background-color: var(--bg-float);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      z-index: 35;
+      user-select: none;
+    }
+
+    .icon-popover {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--bg-float);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 60;
+      white-space: nowrap;
+    }
+
+    .emoji-grid-popover {
+      display: grid;
+      grid-template-columns: repeat(6, 28px);
+      gap: 4px;
+      padding: 8px;
+      border-radius: 12px;
+    }
+    .emoji-btn {
+      width: 28px;
+      height: 28px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 100ms ease, background-color 100ms ease;
+    }
+    .emoji-btn:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      transform: scale(1.18);
+    }
+
+    .code-float-box {
+      position: absolute;
+      bottom: 66px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(360px, calc(100% - 32px));
+      background-color: var(--bg-float);
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
+      padding: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      z-index: 40;
+    }
+    textarea#dsl-input {
+      flex: 1;
+      height: 76px;
+      background: transparent;
+      color: var(--ink);
+      border: none;
+      padding: 4px 6px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.5;
+      resize: none;
+      outline: none;
+    }
+
+    /* Inline Floating Shape / Sticky Note / Edge Heading / Table Cell Editor */
+    .inline-editor-shell {
+      position: absolute;
+      z-index: 59;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      pointer-events: auto;
+    }
+    .inline-editor-toolbar {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 3px 6px;
+      background-color: var(--bg-float);
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      align-self: center;
+      white-space: nowrap;
+    }
+    textarea#inline-canvas-editor {
+      background-color: rgba(18, 20, 24, 0.96);
+      color: var(--ink);
+      border: 1.5px solid var(--accent);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      text-align: center;
+      resize: both;
+      outline: none;
+      min-width: 130px;
+      min-height: 44px;
+      line-height: 1.4;
+      user-select: text;
+    }
+
+    /* EXCEL-STYLE BOTTOM SHEET BAR */
+    .excel-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 28px;
+      padding: 0 14px;
+      background-color: var(--bg);
+      border-top: 1px solid var(--line);
+      user-select: none;
+      z-index: 45;
+      font-size: 11.5px;
+    }
+
+    .sheets-scroll-strip {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      overflow-x: auto;
+      max-width: 68%;
+      height: 100%;
+    }
+
+    .sheet-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 27px;
+      padding: 0 10px;
+      background: transparent;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      font-size: 11.5px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 100ms ease, background-color 100ms ease;
+    }
+    .sheet-tab:hover {
+      color: var(--ink);
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+    .sheet-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .sheet-close-btn {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 11px;
+      line-height: 1;
+      opacity: 0.65;
+    }
+    .sheet-close-btn:hover {
+      opacity: 1;
+      color: #F87171;
+      background-color: rgba(248, 113, 113, 0.14);
+    }
+
+    /* Internal Settings & Full Photoshop/Canvas Shortcuts Modal */
+    .settings-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 90;
+      padding: 16px;
+    }
+    .settings-modal-card {
+      width: 100%;
+      max-width: 560px;
+      max-height: 82dvh;
+      background-color: #13151A;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .settings-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .settings-modal-body {
+      padding: 14px 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sc-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6px 14px;
+      align-items: center;
+      font-size: 12px;
+    }
+    .sc-desc {
+      color: var(--muted);
+    }
+    .sc-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink);
+      background-color: rgba(255, 255, 255, 0.06);
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-align: right;
+    }
+
+    .status-pulse {
+      position: fixed;
+      bottom: 38px;
+      left: 18px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      z-index: 95;
+      pointer-events: none;
+    }
+
+    @media (max-width: 760px) {
+      .workspace-stage {
+        flex-direction: column;
+      }
+      .notes-surface, .canvas-surface {
+        width: 100% !important;
+        flex: 1;
+      }
+      .open-splitter {
+        width: 100%;
+        height: 1px;
+        cursor: row-resize;
+      }
+    }

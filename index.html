@@ -1,0 +1,609 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;600;700&family=Inter:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="frontend/css/style.css" />
+</head>
+<body>
+  <!-- Hidden Upload Inputs -->
+  <label for="input-upload-canvas-img" class="hidden">Upload Image to Canvas</label>
+  <input type="file" id="input-upload-canvas-img" class="hidden" accept="image/*" multiple />
+
+  <label for="input-upload-notes-file" class="hidden">Upload File or Image to Notes</label>
+  <input type="file" id="input-upload-notes-file" class="hidden" accept="image/*,.md,.txt,.json,.sql,.csv,.js,.py,.html" multiple />
+
+  <div class="app-root">
+    <!-- TOP OPEN RIBBON BAR -->
+    <header class="top-header" id="top-header">
+      <div class="top-nav-row">
+        <div class="open-cluster" role="tablist" aria-label="Workspace Tabs">
+          <!-- Side Notepad Show/Hide Toggle -->
+          <button type="button" class="icon-btn active" id="btn-quick-notepad-toggle" aria-label="Toggle Side Notepad" title="Show / Hide Notepad (Ctrl+H)">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="10" y1="4" x2="10" y2="20"/></svg>
+          </button>
+
+          <div class="hair-sep"></div>
+
+          <button type="button" class="tab-link active" data-ribbon-tab="home">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            <span>Home</span>
+          </button>
+          <button type="button" class="tab-link" data-ribbon-tab="insert">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Insert</span>
+          </button>
+          <button type="button" class="tab-link" data-ribbon-tab="style">
+            <svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6" stroke-width="1.5"/><line x1="4" y1="12" x2="20" y2="12" stroke-width="3"/><line x1="4" y1="18" x2="20" y2="18" stroke-width="4.5"/></svg>
+            <span>Style</span>
+          </button>
+          <button type="button" class="tab-link" data-ribbon-tab="view">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span>View</span>
+          </button>
+        </div>
+
+        <!-- Right Quick Actions: Copy/Paste Style Painter, Table, Sticky Note, Free Transform (Ctrl+T), Fit All (Ctrl+1), Reset 100% (Ctrl+0), Settings -->
+        <div class="open-cluster">
+          <button type="button" class="icon-btn" id="btn-style-painter" aria-label="Copy and Paste Shape Style" title="Format Painter: Click to Copy Style of Selected Shape, then Click Target Shape (Ctrl+Alt+C / Ctrl+Alt+V)">
+            <svg viewBox="0 0 24 24"><path d="M18 3H6a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"/><path d="M12 10v4"/><rect x="10" y="14" width="4" height="7" rx="1"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-top-table" aria-label="Insert Cells Table" title="Draw Cells Table on Canvas (G)">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-top-sticky" aria-label="Add Sticky Note" title="Add Sticky Note (S)">
+            <svg viewBox="0 0 24 24"><path d="M15.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z"/><polyline points="15 3 15 9 21 9"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-free-transform" aria-label="Photoshop Free Transform" title="Free Transform & Proportional Scale (Ctrl+T)">
+            <svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" stroke-dasharray="3 3"/><rect x="3" y="3" width="4" height="4" fill="currentColor"/><rect x="17" y="3" width="4" height="4" fill="currentColor"/><rect x="3" y="17" width="4" height="4" fill="currentColor"/><rect x="17" y="17" width="4" height="4" fill="currentColor"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-fit-all" aria-label="Fit All Diagrams to Screen" title="Fit All Diagrams to Full Screen (Ctrl+1)">
+            <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-zero-state" aria-label="Reset 100% Real State" title="Actual 100% Zero State (Ctrl+0)">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/></svg>
+          </button>
+
+          <div class="hair-sep"></div>
+
+          <button type="button" class="icon-btn" id="btn-top-upload-img" aria-label="Upload Image to Canvas" title="Upload Photo / Image to Canvas">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-top-upload-file" aria-label="Upload File" title="Upload File (.md, .txt, .json, code)">
+            <svg viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          </button>
+
+          <div class="hair-sep"></div>
+
+          <button type="button" class="icon-btn" id="btn-undo" aria-label="Undo" title="Undo (Ctrl+Z)">
+            <svg viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-redo" aria-label="Redo" title="Redo (Ctrl+Y)">
+            <svg viewBox="0 0 24 24"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-open-settings" aria-label="Settings and Shortcuts" title="Internal Settings & Shortcuts List (?)">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </button>
+          <button type="button" class="icon-btn" id="btn-collapse-ribbon" aria-label="Collapse Ribbon" title="Compress Top Bar">
+            <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Open Ribbon Content Row -->
+      <div class="ribbon-sub-row" id="ribbon-content-strip">
+        <!-- TAB 1: HOME (Notepad Formatting, Font Styles, Copy/Paste/Style Painter) -->
+        <div class="sub-pane" id="ribbon-pane-home">
+          <div class="tool-cluster">
+            <button type="button" class="icon-btn" id="fmt-h1" aria-label="Heading 1" title="Heading 1">
+              <svg viewBox="0 0 24 24"><path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/><path d="M17 12l3-2v8"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="fmt-h2" aria-label="Heading 2" title="Heading 2">
+              <svg viewBox="0 0 24 24"><path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/><path d="M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-4-1"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="fmt-bold" aria-label="Bold" title="Bold">
+              <svg viewBox="0 0 24 24"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="fmt-italic" aria-label="Italic" title="Italic Style">
+              <svg viewBox="0 0 24 24"><line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="fmt-list" aria-label="Bullet List" title="Bullet List">
+              <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="fmt-code" aria-label="Code Block" title="Code Block">
+              <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="toggle-md-mode" aria-label="Markdown Mode" title="Toggle Raw Markdown">
+              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 15V9l3 3 3-3v6"/><path d="M18 15l-3-3h2V9h2v3h2z"/></svg>
+            </button>
+          </div>
+
+          <div class="hair-sep"></div>
+
+          <!-- Font Family Selector Pills -->
+          <div class="tool-cluster" aria-label="Text Font Styles">
+            <button type="button" class="style-chip active" data-font-family="sans" style="font-family:var(--font-sans);" title="Sans-Serif Clean">Sans</button>
+            <button type="button" class="style-chip" data-font-family="serif" style="font-family:var(--font-serif);" title="Editorial Serif">Serif</button>
+            <button type="button" class="style-chip" data-font-family="hand" style="font-family:var(--font-hand);font-size:14px;" title="Calligraphy Script">Script</button>
+            <button type="button" class="style-chip" data-font-family="arch" style="font-family:var(--font-arch);" title="Architect Hand-Lettering">Sketch</button>
+            <button type="button" class="style-chip" data-font-family="mono" style="font-family:var(--font-mono);font-size:11px;" title="Monospace Code">Mono</button>
+          </div>
+
+          <div class="hair-sep"></div>
+
+          <!-- Copy, Paste, Copy Style, Paste Style, Select All, Delete -->
+          <div class="tool-cluster">
+            <button type="button" class="icon-btn" id="btn-copy-shape" aria-label="Copy Selected" title="Copy Shape / Text (Ctrl+C)">
+              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-paste-shape" aria-label="Paste" title="Paste Shape / Clipboard Text / Image (Ctrl+V)">
+              <svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-copy-style" aria-label="Copy Style" title="Copy Style of Selected Shape (Ctrl+Alt+C)">
+              <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-paste-style" aria-label="Paste Style" title="Apply Copied Style to Selected Shape (Ctrl+Alt+V)">
+              <svg viewBox="0 0 24 24"><path d="M19 11l-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11z"/><path d="M2 22h20"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-select-all" aria-label="Select All" title="Select All (Ctrl+A)">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 3"/><polyline points="9 12 11 14 15 10"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-delete-selected" aria-label="Delete Selected" title="Delete Selected (Backspace)">
+              <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 2: INSERT (Cells Table, Sticky Notes, Images, Files, Shapes) -->
+        <div class="sub-pane hidden" id="ribbon-pane-insert">
+          <div class="tool-cluster">
+            <button type="button" class="icon-btn" data-quick-tool="table" aria-label="Cells Table" title="Draw Cells Table on Canvas (G)">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-quick-tool="sticky" aria-label="Sticky Note" title="Place Sticky Note on Canvas (S)">
+              <svg viewBox="0 0 24 24"><path d="M15.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z"/><polyline points="15 3 15 9 21 9"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-rib-upload-canvas-img" aria-label="Upload Image to Canvas" title="Place Image / Photo on Canvas">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-rib-upload-notes-file" aria-label="Upload File to Notepad" title="Upload File (.md, .txt, .json, code) to Notepad">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="fmt-embed-canvas" aria-label="Embed Canvas into Notepad" title="Embed Diagram Snapshot into Notepad">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            </button>
+          </div>
+
+          <div class="hair-sep"></div>
+
+          <div class="tool-cluster">
+            <button type="button" class="icon-btn" data-quick-tool="rect" aria-label="Rectangle" title="Rectangle (2)">
+              <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-quick-tool="diamond" aria-label="Diamond" title="Diamond (3)">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 22 12 12 22 2 12 12 2"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-quick-tool="ellipse" aria-label="Circle" title="Circle (4)">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-quick-tool="cylinder" aria-label="Database" title="Database Cylinder (5)">
+              <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-quick-tool="frame" aria-label="Frame" title="Frame Container (6)">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 3"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-quick-tool="arrow" aria-label="Arrow" title="Connector Arrow (7)">
+              <svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="9 5 19 5 19 15"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-quick-tool="freedraw" aria-label="Freehand" title="Freehand Pencil (9)">
+              <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-quick-tool="text" aria-label="Text" title="Auto-Layout Text (0)">
+              <svg viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 3: STYLE (Single-Line Color Strip with '+' Color Wheel FIRST, then Swatches, Thickness & Fill) -->
+        <div class="sub-pane hidden" id="ribbon-pane-style">
+          <div class="tool-cluster" id="ribbon-color-strip" aria-label="Colors">
+            <!-- FIRST POSITION: '+' Custom Color Wheel that opens picker & adds custom swatches -->
+            <label class="color-plus-wheel" title="Click '+' to Pick Any Color & Add Custom Swatch">
+              <input type="color" id="custom-color-picker" value="#E2F163" aria-label="Add Custom Color Swatch" />
+            </label>
+            <button type="button" class="swatch-dot active" data-color="#F2F4F8" style="background:#F2F4F8;" aria-label="White"></button>
+            <button type="button" class="swatch-dot" data-color="#E2F163" style="background:#E2F163;" aria-label="Electric Lime"></button>
+            <button type="button" class="swatch-dot" data-color="#58C4DC" style="background:#58C4DC;" aria-label="Cyan"></button>
+            <button type="button" class="swatch-dot" data-color="#34D399" style="background:#34D399;" aria-label="Emerald"></button>
+            <button type="button" class="swatch-dot" data-color="#F59E0B" style="background:#F59E0B;" aria-label="Amber"></button>
+            <button type="button" class="swatch-dot" data-color="#FB923C" style="background:#FB923C;" aria-label="Orange"></button>
+            <button type="button" class="swatch-dot" data-color="#F87171" style="background:#F87171;" aria-label="Coral Red"></button>
+            <button type="button" class="swatch-dot" data-color="#F472B6" style="background:#F472B6;" aria-label="Pink"></button>
+            <button type="button" class="swatch-dot" data-color="#A78BFA" style="background:#A78BFA;" aria-label="Violet"></button>
+            <button type="button" class="swatch-dot" data-color="#60A5FA" style="background:#60A5FA;" aria-label="Royal Blue"></button>
+            <button type="button" class="swatch-dot" data-color="#FEF08A" style="background:#FEF08A;" aria-label="Sticky Yellow"></button>
+          </div>
+
+          <div class="hair-sep"></div>
+
+          <!-- Stroke Thickness -->
+          <div class="tool-cluster" aria-label="Stroke Thickness">
+            <button type="button" class="icon-btn" data-thick="1" aria-label="1px Thin" title="1px Thin">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12" stroke-width="1.2"/></svg>
+            </button>
+            <button type="button" class="icon-btn active" data-thick="2" aria-label="2px Regular" title="2px Regular">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12" stroke-width="2.2"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-thick="4" aria-label="4px Medium" title="4px Medium">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12" stroke-width="4"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-thick="7" aria-label="7px Bold" title="7px Bold">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12" stroke-width="6.5"/></svg>
+            </button>
+            <label for="thickness-slider" class="hidden">Thickness Slider</label>
+            <input type="range" id="thickness-slider" class="thick-slider" min="1" max="16" step="1" value="2" />
+            <span class="mono-readout" id="thickness-readout">2px</span>
+          </div>
+
+          <div class="hair-sep"></div>
+
+          <div class="tool-cluster">
+            <button type="button" class="icon-btn active" data-dash="solid" aria-label="Solid Line" title="Solid Line">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-dash="dashed" aria-label="Dashed Line" title="Dashed Line">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12" stroke-dasharray="5 3"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-dash="dotted" aria-label="Dotted Line" title="Dotted Line">
+              <svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12" stroke-dasharray="1.5 3.5"/></svg>
+            </button>
+            <button type="button" class="icon-btn active" data-fill="solid" aria-label="Solid Fill" title="Solid Fill">
+              <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" fill="currentColor"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-fill="hachure" aria-label="Hatch Fill" title="Sketch Hatch Fill">
+              <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="4" y1="14" x2="14" y2="4"/><line x1="10" y1="20" x2="20" y2="10"/></svg>
+            </button>
+            <button type="button" class="icon-btn" data-fill="none" aria-label="Outline Only" title="Outline Only">
+              <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 4: VIEW & EXPORT -->
+        <div class="sub-pane hidden" id="ribbon-pane-view">
+          <div class="tool-cluster">
+            <button type="button" class="icon-btn" id="view-notes-btn" aria-label="Notepad Only" title="Full Notepad View">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="17" y2="13"/></svg>
+            </button>
+            <button type="button" class="icon-btn active" id="view-split-btn" aria-label="Split View" title="Split Notepad + Diagram">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="view-canvas-btn" aria-label="Hide Notepad" title="Hide Notepad (100% Canvas)">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><rect x="7" y="8" width="5" height="4" rx="1"/><circle cx="15.5" cy="14.5" r="2.5"/></svg>
+            </button>
+          </div>
+
+          <div class="hair-sep"></div>
+
+          <div class="tool-cluster">
+            <button type="button" class="icon-btn active" id="btn-toggle-snap" aria-label="Grid Snap" title="Toggle Snap Grid">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-export-png" aria-label="Export PNG" title="Export Diagram PNG">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-export-md" aria-label="Export Markdown" title="Export Notepad (.md)">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-clear-all" aria-label="Clear Current Sheet" title="Clear Current Sheet">
+              <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- OPEN WORKSPACE STAGE -->
+    <main class="workspace-stage" id="split-workspace">
+      <!-- Left Open Notepad -->
+      <section class="notes-surface" id="notes-pane" style="width: 38%;">
+        <div
+          id="rich-notes-editor"
+          class="rich-notes-area"
+          contenteditable="true"
+          spellcheck="false"
+          data-placeholder="..."
+        ></div>
+
+        <label for="raw-notes-editor" class="hidden">Markdown</label>
+        <textarea
+          id="raw-notes-editor"
+          class="raw-notes-area hidden"
+          spellcheck="false"
+          placeholder="..."
+        ></textarea>
+      </section>
+
+      <!-- Whisper-Thin Draggable Line -->
+      <div class="open-splitter" id="splitter-bar" title="Drag to resize Â· Double-click to hide/show Notepad"></div>
+
+      <!-- Right Open Infinite Canvas -->
+      <section class="canvas-surface" id="canvas-pane">
+        <div class="canvas-surface" id="canvas-viewport" style="width:100%;height:100%;">
+          <!-- Contextual 4-Edge '+' Action Popover (Write Border-Gap Heading Text, Connect Arrow, or Spawn Connected Box) -->
+          <div class="edge-plus-menu hidden" id="edge-plus-menu">
+            <button type="button" class="icon-btn" id="btn-edge-write-text" aria-label="Write Border Heading Text" title="Write Heading Text Inside This Border Line (Blanks Line Behind Text)">
+              <svg viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-edge-connect-box" aria-label="Connect to Another Box" title="Connect Arrow From This Side to Another Box">
+              <svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="9 5 19 5 19 15"/></svg>
+            </button>
+            <button type="button" class="icon-btn" id="btn-edge-spawn-box" aria-label="Add Connected Box" title="Create & Connect a New Box on This Side">
+              <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="12" y1="9" x2="12" y2="15"/><line x1="9" y1="12" x2="15" y2="12"/></svg>
+            </button>
+          </div>
+
+          <!-- Inline Text / Border-Gap Heading / Sticky Note / Table Cell Editor -->
+          <div class="inline-editor-shell hidden" id="inline-editor-shell">
+            <div class="inline-editor-toolbar">
+              <button type="button" class="style-chip active" data-inline-font="sans" style="font-family:var(--font-sans);">Sans</button>
+              <button type="button" class="style-chip" data-inline-font="serif" style="font-family:var(--font-serif);">Serif</button>
+              <button type="button" class="style-chip" data-inline-font="hand" style="font-family:var(--font-hand);font-size:13.5px;">Script</button>
+              <button type="button" class="style-chip" data-inline-font="arch" style="font-family:var(--font-arch);">Sketch</button>
+              <button type="button" class="style-chip" data-inline-font="mono" style="font-family:var(--font-mono);font-size:10.5px;">Mono</button>
+              <div class="hair-sep"></div>
+              <button type="button" class="style-chip" id="btn-inline-italic" style="font-style:italic;font-weight:700;" title="Toggle Italic">I</button>
+              <button type="button" class="style-chip" id="btn-inline-done" style="color:var(--accent);font-weight:700;" title="Apply Text (Esc)">âœ“</button>
+            </div>
+            <label for="inline-canvas-editor" class="hidden">Canvas Text Editor</label>
+            <textarea id="inline-canvas-editor" spellcheck="false" placeholder="Type with spaces &amp; new lines..."></textarea>
+          </div>
+
+          <canvas id="draw-canvas"></canvas>
+
+          <!-- Floating Diagram-as-Code Popover -->
+          <div class="code-float-box hidden" id="code-float-box">
+            <label for="dsl-input" class="hidden">DSL</label>
+            <textarea
+              id="dsl-input"
+              spellcheck="false"
+              placeholder="A -> B: API&#10;B -> C [db]: SQL"
+            ></textarea>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <button type="button" class="icon-btn active" id="btn-apply-dsl" aria-label="Render Diagram Code" title="Render">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </button>
+              <button type="button" class="icon-btn" id="btn-close-code-box" aria-label="Close Code Box" title="Close">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Floating Pill Dock on Canvas -->
+          <div class="floating-dock" id="canvas-bottom-pod" role="toolbar" aria-label="Drawing Tools">
+            <button type="button" class="icon-btn" id="btn-compress-dock" aria-label="Compress Dock" title="Compress / Expand Dock">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+
+            <div id="dock-items" style="display:inline-flex;align-items:center;gap:4px;">
+              <!-- 1. Select / Pan -->
+              <div style="position:relative;display:inline-flex;">
+                <button type="button" class="icon-btn active" id="btn-nav-combo" aria-label="Select or Pan" title="Select (1) Â· Pan (H)">
+                  <svg id="icon-nav-current" viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
+                  <span class="combo-dot"></span>
+                </button>
+                <div class="icon-popover hidden" id="popover-nav">
+                  <button type="button" class="icon-btn active" data-pick-nav="select" aria-label="Select" title="Select (1)">
+                    <svg viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
+                  </button>
+                  <button type="button" class="icon-btn" data-pick-nav="pan" aria-label="Pan" title="Hand Pan (H)">
+                    <svg viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 2. Shapes + Cells Table Combo (Rect, Diamond, Circle, DB, Frame, Table) -->
+              <div style="position:relative;display:inline-flex;">
+                <button type="button" class="icon-btn" id="btn-shape-combo" aria-label="Shapes and Table" title="Shapes & Cells Table (Rect, Diamond, Circle, DB, Frame, Table)">
+                  <svg id="icon-shape-current" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+                  <span class="combo-dot"></span>
+                </button>
+                <div class="icon-popover hidden" id="popover-shapes">
+                  <button type="button" class="icon-btn active" data-pick-shape="rect" aria-label="Rectangle" title="Rectangle (2)">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+                  </button>
+                  <button type="button" class="icon-btn" data-pick-shape="diamond" aria-label="Diamond" title="Diamond (3)">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 22 12 12 22 2 12 12 2"/></svg>
+                  </button>
+                  <button type="button" class="icon-btn" data-pick-shape="ellipse" aria-label="Circle" title="Circle (4)">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+                  </button>
+                  <button type="button" class="icon-btn" data-pick-shape="cylinder" aria-label="Database" title="Database Cylinder (5)">
+                    <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
+                  </button>
+                  <button type="button" class="icon-btn" data-pick-shape="frame" aria-label="Frame" title="Frame (6)">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke-dasharray="4 3"/></svg>
+                  </button>
+                  <button type="button" class="icon-btn" data-pick-shape="table" aria-label="Cells Table" title="Cells Table Grid (G)">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 3. Connectors, Freehand & Auto-Layout Text Combo -->
+              <div style="position:relative;display:inline-flex;">
+                <button type="button" class="icon-btn" id="btn-draw-combo" aria-label="Connectors and Text" title="Arrow, Line, Pencil, Auto-Layout Text">
+                  <svg id="icon-draw-current" viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="9 5 19 5 19 15"/></svg>
+                  <span class="combo-dot"></span>
+                </button>
+                <div class="icon-popover hidden" id="popover-draw">
+                  <button type="button" class="icon-btn active" data-pick-draw="arrow" aria-label="Arrow" title="Arrow (7)">
+                    <svg viewBox="0 0 24 24"><line x1="5" y1="19" x2="19" y2="5"/><polyline points="9 5 19 5 19 15"/></svg>
+                  </button>
+                  <button type="button" class="icon-btn" data-pick-draw="line" aria-label="Line" title="Line (8)">
+                    <svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4"/></svg>
+                  </button>
+                  <button type="button" class="icon-btn" data-pick-draw="freedraw" aria-label="Freehand" title="Freehand Pencil (9)">
+                    <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg>
+                  </button>
+                  <button type="button" class="icon-btn" data-pick-draw="text" aria-label="Text" title="Auto-Layout Text (0 Â· Drag handle to wrap, Ctrl+Drag to scale size)">
+                    <svg viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 4. Sticky Notes Tool (S) -->
+              <button type="button" class="icon-btn" id="btn-dock-sticky" aria-label="Sticky Note" title="Add Sticky Note on Canvas (S)">
+                <svg viewBox="0 0 24 24"><path d="M15.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z"/><polyline points="15 3 15 9 21 9"/></svg>
+              </button>
+
+              <!-- 5. Special Emojis & Stickers Picker -->
+              <div style="position:relative;display:inline-flex;">
+                <button type="button" class="icon-btn" id="btn-emoji-combo" aria-label="Special Emojis" title="Special Emojis & Stickers">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                  <span class="combo-dot"></span>
+                </button>
+                <div class="icon-popover emoji-grid-popover hidden" id="popover-emojis">
+                  <button type="button" class="emoji-btn" data-emoji="ðŸš€">ðŸš€</button>
+                  <button type="button" class="emoji-btn" data-emoji="âš¡">âš¡</button>
+                  <button type="button" class="emoji-btn" data-emoji="ðŸ”¥">ðŸ”¥</button>
+                  <button type="button" class="emoji-btn" data-emoji="âœ¨">âœ¨</button>
+                  <button type="button" class="emoji-btn" data-emoji="ðŸ’¡">ðŸ’¡</button>
+                  <button type="button" class="emoji-btn" data-emoji="ðŸ“Œ">ðŸ“Œ</button>
+                  <button type="button" class="emoji-btn" data-emoji="âœ…">âœ…</button>
+                  <button type="button" class="emoji-btn" data-emoji="âš ï¸">âš ï¸</button>
+                  <button type="button" class="emoji-btn" data-emoji="ðŸ”’">ðŸ”’</button>
+                  <button type="button" class="emoji-btn" data-emoji="ðŸ—„ï¸">ðŸ—„ï¸</button>
+                  <button type="button" class="emoji-btn" data-emoji="â˜ï¸">â˜ï¸</button>
+                  <button type="button" class="emoji-btn" data-emoji="ðŸŒ">ðŸŒ</button>
+                  <button type="button" class="emoji-btn" data-emoji="âš™ï¸">âš™ï¸</button>
+                  <button type="button" class="emoji-btn" data-emoji="ðŸŽ¯">ðŸŽ¯</button>
+                  <button type="button" class="emoji-btn" data-emoji="ðŸ§ ">ðŸ§ </button>
+                  <button type="button" class="emoji-btn" data-emoji="ðŸ’¬">ðŸ’¬</button>
+                  <button type="button" class="emoji-btn" data-emoji="â­">â­</button>
+                  <button type="button" class="emoji-btn" data-emoji="â¤ï¸">â¤ï¸</button>
+                </div>
+              </div>
+
+              <!-- 6. Style Painter (Copy & Apply Style) -->
+              <button type="button" class="icon-btn" id="btn-dock-painter" aria-label="Copy and Apply Style" title="Format Painter: Click to Copy Selected Shape's Style, Then Click Another Shape to Apply">
+                <svg viewBox="0 0 24 24"><path d="M18 3H6a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"/><path d="M12 10v4"/><rect x="10" y="14" width="4" height="7" rx="1"/></svg>
+              </button>
+
+              <!-- 7. Eraser -->
+              <button type="button" class="icon-btn" id="btn-eraser-tool" aria-label="Eraser" title="Eraser (E)">
+                <svg viewBox="0 0 24 24"><path d="M20 20H7L3 16C2 15 2 13 3 12L13 2L22 11L20 20Z"/><line x1="17" y1="17" x2="11" y2="11"/></svg>
+              </button>
+
+              <div class="hair-sep"></div>
+
+              <!-- 8. PURE COLOR POPOVER (Single Row: '+' Color Wheel FIRST before White, NO Fonts inside!) -->
+              <div style="position:relative;display:inline-flex;">
+                <button type="button" class="icon-btn" id="btn-style-combo" aria-label="Color Swatches" title="Colors & Custom Swatches">
+                  <span id="active-color-dot" style="width:14px;height:14px;border-radius:50%;background:#F2F4F8;display:inline-block;"></span>
+                  <span class="combo-dot"></span>
+                </button>
+                <div class="icon-popover hidden" id="popover-style">
+                  <!-- FIRST POSITION (Before White): '+' Color Wheel that picks any color & adds custom swatch -->
+                  <label class="color-plus-wheel" title="Click '+' to Choose Any Color & Add Custom Swatch">
+                    <input type="color" id="dock-color-picker" value="#E2F163" aria-label="Add Custom Color" />
+                  </label>
+                  <div id="dock-swatches-row" style="display:inline-flex;align-items:center;gap:6px;">
+                    <button type="button" class="swatch-dot active" data-color="#F2F4F8" style="background:#F2F4F8;" aria-label="White"></button>
+                    <button type="button" class="swatch-dot" data-color="#E2F163" style="background:#E2F163;" aria-label="Lime"></button>
+                    <button type="button" class="swatch-dot" data-color="#58C4DC" style="background:#58C4DC;" aria-label="Cyan"></button>
+                    <button type="button" class="swatch-dot" data-color="#34D399" style="background:#34D399;" aria-label="Emerald"></button>
+                    <button type="button" class="swatch-dot" data-color="#F59E0B" style="background:#F59E0B;" aria-label="Amber"></button>
+                    <button type="button" class="swatch-dot" data-color="#FB923C" style="background:#FB923C;" aria-label="Orange"></button>
+                    <button type="button" class="swatch-dot" data-color="#F87171" style="background:#F87171;" aria-label="Coral"></button>
+                    <button type="button" class="swatch-dot" data-color="#F472B6" style="background:#F472B6;" aria-label="Pink"></button>
+                    <button type="button" class="swatch-dot" data-color="#A78BFA" style="background:#A78BFA;" aria-label="Violet"></button>
+                    <button type="button" class="swatch-dot" data-color="#60A5FA" style="background:#60A5FA;" aria-label="Blue"></button>
+                    <button type="button" class="swatch-dot" data-color="#FEF08A" style="background:#FEF08A;" aria-label="Yellow"></button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 9. Upload Image -->
+              <button type="button" class="icon-btn" id="btn-dock-upload-img" aria-label="Upload Image" title="Upload Photo / Image">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              </button>
+
+              <!-- 10. Diagram-as-Code -->
+              <button type="button" class="icon-btn" id="btn-toggle-code-box" aria-label="Diagram as Code" title="Diagram-as-Code">
+                <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- EXCEL-STYLE BOTTOM SHEET BAR -->
+    <footer class="excel-bottom-bar">
+      <div class="sheets-scroll-strip" id="excel-sheets-strip" role="tablist" aria-label="Workbook Sheets"></div>
+
+      <div class="open-cluster" style="gap:8px;">
+        <button type="button" class="icon-btn" id="zoom-out-btn" style="width:22px;height:22px;" aria-label="Zoom Out" title="Zoom Out (-)">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <span class="mono-readout" id="zoom-pct-readout" style="cursor:pointer;" title="Click or press Ctrl+0 for 100% Zero State">100%</span>
+        <button type="button" class="icon-btn" id="zoom-in-btn" style="width:22px;height:22px;" aria-label="Zoom In" title="Zoom In (+)">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+
+        <div class="hair-sep"></div>
+
+        <button type="button" class="icon-btn" id="btn-toggle-shortcuts" style="width:22px;height:22px;" aria-label="Settings and Shortcuts" title="Settings & Keyboard Shortcuts (?)">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </button>
+      </div>
+    </footer>
+
+    <!-- INTERNAL SETTINGS & FULL PHOTOSHOP / CANVAS SHORTCUTS MODAL -->
+    <div class="settings-modal-backdrop hidden" id="settings-modal">
+      <div class="settings-modal-card">
+        <div class="settings-modal-header">
+          <span>Workspace Settings &amp; Photoshop / Canvas Shortcuts</span>
+          <button type="button" class="icon-btn" id="btn-close-settings" style="width:24px;height:24px;" aria-label="Close Settings">âœ•</button>
+        </div>
+        <div class="settings-modal-body">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--line);">
+            <span style="color:var(--ink);font-weight:600;">Snap Shapes to 10px Grid</span>
+            <input type="checkbox" id="chk-setting-snap" checked style="accent-color:var(--accent);width:16px;height:16px;cursor:pointer;" />
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--line);">
+            <span style="color:var(--ink);font-weight:600;">Show 4-Edge '+' Quick Action Handles on Hover</span>
+            <input type="checkbox" id="chk-setting-edge-plus" checked style="accent-color:var(--accent);width:16px;height:16px;cursor:pointer;" />
+          </div>
+
+          <div style="font-weight:700;color:var(--accent);font-size:11.5px;margin-top:4px;">KEYBOARD SHORTCUTS REFERENCE</div>
+          <div class="sc-grid">
+            <span class="sc-desc">Text Handle Drag (Normal)</span><span class="sc-badge">Auto-Layout Width Wrap</span>
+            <span class="sc-desc">Text Handle Drag (With Ctrl)</span><span class="sc-badge">Ctrl + Drag Handle (Scales Font Size)</span>
+            <span class="sc-desc">Photoshop Free Transform (Scale All)</span><span class="sc-badge">Ctrl + T</span>
+            <span class="sc-desc">Repeat Last Scale / Transform</span><span class="sc-badge">Ctrl + Shift + T</span>
+            <span class="sc-desc">Actual 100% Real Zero State</span><span class="sc-badge">Ctrl + 0</span>
+            <span class="sc-desc">Fit All Diagrams to Full Screen</span><span class="sc-badge">Ctrl + 1</span>
+            <span class="sc-desc">Copy / Paste Shape, External Image or Text</span><span class="sc-badge">Ctrl + C  /  Ctrl + V</span>
+            <span class="sc-desc">Copy Style / Paste Style onto Shape</span><span class="sc-badge">Ctrl + Alt + C  /  Ctrl + Alt + V</span>
+            <span class="sc-desc">Hover Any Box Edge '+' Icon</span><span class="sc-badge">Border Heading Text / Connect / Spawn</span>
+            <span class="sc-desc">Draw Cells Table / Sticky Note</span><span class="sc-badge">G (Table)  /  S (Sticky Note)</span>
+            <span class="sc-desc">Decrease / Increase Thickness &amp; Font Size</span><span class="sc-badge">[  /  ]</span>
+            <span class="sc-desc">Quick Clone While Dragging</span><span class="sc-badge">Alt + Drag</span>
+            <span class="sc-desc">Show / Hide Side Notepad</span><span class="sc-badge">Ctrl + H</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="status-pulse" class="status-pulse hidden"></div>
+  </div>
+
+  <script src="frontend/js/app.js"></script>
+</body>
+</html>
